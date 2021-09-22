@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+    <h1><u>People</u></h1>
+        {% for person in object_list %}
+            <a href="{% url 'person_view' person.slug %}">{{ person.first_name }}</a>
+            {{ person.last_name }}
+            {{ person.birthday }}
+        {% endfor %}
+    </body>
+</html>
