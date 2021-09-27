@@ -6,6 +6,9 @@ import smtplib
 import getpass
 
 from CharlieAustin import send_charlie_stories
+from CharlieAustin import find_charlie_stories
+from CharlieAustin import Story
+from bot import QPRBot
 
 
 @dataclass
@@ -39,6 +42,7 @@ def sort_links(all_links):
 def convert_list(links):
     return ', '.join(links)
 
+'''
 def send_email(links):
     smtp_object = smtplib.SMTP('smtp.gmail.com', 587)
     smtp_object.ehlo()
@@ -62,15 +66,21 @@ def send_email(links):
     smtp_object.sendmail(from_adress, to_adress, msgqpr)
     smtp_object.sendmail(from_adress, to_adress, msgscum)
     smtp_object.quit()
-
+    '''
 
 def main():
+
     links = find_links("https://www.westlondonsport.com/")
     sorted_links = sort_links(links)
     # send_email(sorted_links)
-    send_charlie_stories(sorted_links.qpr)
+    stories = find_charlie_stories(sorted_links.qpr)
+
+    qpr_bot = QPRBot(stories)
+
+    qpr_bot.start_bot()
 
 
+'''
 @dataclass
 class WeedOrder:
     strain: str
@@ -98,7 +108,7 @@ if __name__ == '__main__':
 
     print(order1.price)
     print(order2[3])
-
-    main()
+'''
+main()
 
 
